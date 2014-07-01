@@ -31,5 +31,3 @@ module.exports = function(cmd, args, opts) {
 
   return execspawn(parsed, xtend(opts, {env:xtend(env, {PATH:p})}))
 }
-
-module.exports('echo {a,b}{$0,1} and $1', ['foo', 'bar']).stdout.pipe(process.stderr)
