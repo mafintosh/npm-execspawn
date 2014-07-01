@@ -6,6 +6,8 @@ Spawn locally installed npm dependencies with cross platform env and argument pa
 npm install npm-execspawn
 ```
 
+[![build status](http://img.shields.io/travis/mafintosh/npm-execspawn.svg?style=flat)](http://travis-ci.org/mafintosh/npm-execspawn)
+
 ## Usage
 
 First do
