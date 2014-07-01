@@ -1,0 +1,34 @@
+{
+  "name": "npm-execspawn",
+  "version": "0.0.0",
+  "description": "Spawn locally installed npm dependencies with cross platform env and argument parsing support",
+  "main": "index.js",
+  "dependencies": {
+    "shell-quote": "^1.4.1",
+    "execspawn": "^0.2.0",
+    "xtend": "^3.0.0"
+  },
+  "devDependencies": {
+    "tape": "^2.13.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mafintosh/npm-execspawn"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "npm",
+    "exec",
+    "spawn",
+    "run",
+    "path"
+  ],
+  "author": "Mathias Buus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mafintosh/npm-execspawn/issues"
+  },
+  "homepage": "https://github.com/mafintosh/npm-execspawn"
+}
