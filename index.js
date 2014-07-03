@@ -26,7 +26,7 @@ module.exports = function(cmd, args, opts) {
   if (!opts) opts = {}
   if (!args) args = []
 
-  var parsed = parse(cmd, xtend(opts.env, args)).map(toString).join(' ')
+  var parsed = parse(cmd, xtend(opts.env, args, {'':'$'})).map(toString).join(' ')
   var env = opts.env || process.env
   var override = {}
   override[PATH_KEY] = npmRunPath(path.resolve(process.cwd(), opts.cwd || '.'), env[PATH_KEY] || process.env[PATH_KEY])
