@@ -4,6 +4,7 @@ var xtend = require('xtend')
 var path = require('path')
 
 var PATH_SEP = process.platform === 'win32' ? ';' : ':'
+var PATH_KEY = process.platform === 'win32' && !(process.env.PATH && !process.env.Path) ? 'Path' : 'PATH'
 
 var toString = function(cmd) {
   return cmd.op || cmd
@@ -27,7 +28,8 @@ module.exports = function(cmd, args, opts) {
 
   var parsed = parse(cmd, xtend(opts.env, args)).map(toString).join(' ')
   var env = opts.env || process.env
-  var p = npmRunPath(path.resolve(process.cwd(), opts.cwd || '.'), env.PATH || process.env.PATH)
+  var override = {}
+  override[PATH_KEY] = npmRunPath(path.resolve(process.cwd(), opts.cwd || '.'), env[PATH_KEY] || process.env[PATH_KEY])
 
-  return execspawn(parsed, xtend(opts, {env:xtend(env, {PATH:p})}))
+  return execspawn(parsed, xtend(opts, {env:xtend(env, override)}))
 }
