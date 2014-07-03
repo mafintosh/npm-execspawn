@@ -7,7 +7,7 @@ var PATH_SEP = process.platform === 'win32' ? ';' : ':'
 var PATH_KEY = process.platform === 'win32' && !(process.env.PATH && !process.env.Path) ? 'Path' : 'PATH'
 
 var toString = function(cmd) {
-  return cmd.op || cmd
+  return cmd.pattern || cmd.op || cmd
 }
 
 var npmRunPath = function(cwd, PATH) {
