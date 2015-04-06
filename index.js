@@ -2,6 +2,7 @@ var execspawn = require('execspawn')
 var parse = require('shell-quote').parse
 var xtend = require('xtend')
 var path = require('path')
+var debug = require('debug')('npm-execspawn')
 
 var PATH_SEP = process.platform === 'win32' ? ';' : ':'
 var PATH_KEY = process.platform === 'win32' && !(process.env.PATH && !process.env.Path) ? 'Path' : 'PATH'
@@ -31,5 +32,6 @@ module.exports = function(cmd, args, opts) {
   var override = {}
   override[PATH_KEY] = npmRunPath(path.resolve(process.cwd(), opts.cwd || '.'), env[PATH_KEY] || process.env[PATH_KEY])
 
+  debug('execspawn', parsed)
   return execspawn(parsed, xtend(opts, {env:xtend(env, override)}))
 }
