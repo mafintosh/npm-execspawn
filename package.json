@@ -13,6 +13,9 @@
     "concat-stream": "^1.4.6",
     "tape": "^2.13.3"
   },
+  "bin": {
+    "npm-execspawn": "./bin.js"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/mafintosh/npm-execspawn"
