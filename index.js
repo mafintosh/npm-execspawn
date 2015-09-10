@@ -7,8 +7,14 @@ var debug = require('debug')('npm-execspawn')
 var PATH_SEP = process.platform === 'win32' ? ';' : ':'
 var PATH_KEY = process.platform === 'win32' && !(process.env.PATH && !process.env.Path) ? 'Path' : 'PATH'
 
+var quote = function (s) { // lifted from shell-quote since we need different quote ordering for win support
+  if (/["'\s]/.test(s)) return '"' + s.replace(/(["\\$`!])/g, '\\$1') + '"'
+  if (/["\s]/.test(s) && !/'/.test(s)) return "'" + s.replace(/(['\\])/g, '\\$1') + "'"
+  return String(s).replace(/([\\$`()!#&*|])/g, '\\$1')
+}
+
 var toString = function(cmd) {
-  return cmd.pattern || cmd.op || '"' + cmd + '"'
+  return cmd.pattern || cmd.op || quote(cmd)
 }
 
 var npmRunPath = function(cwd, PATH) {
@@ -27,8 +33,8 @@ module.exports = function(cmd, args, opts) {
   if (!opts) opts = {}
   if (!args) args = []
 
-  var parsed = parse(cmd, xtend(opts.env, args, {'':'$'})).map(toString).join(' ')
   var env = opts.env || process.env
+  var parsed = parse(cmd, xtend(env, args, {'':'$'})).map(toString).join(' ')
   var override = {}
   override[PATH_KEY] = npmRunPath(path.resolve(process.cwd(), opts.cwd || '.'), env[PATH_KEY] || process.env[PATH_KEY])
 
